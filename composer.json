@@ -1,0 +1,13 @@
+{
+    "name": "alvin/phpmvc",
+    "description": "A lightweight mvc framework for php",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "alvinlal",
+            "email": "alvinzzz2001@gmail.com"
+        }
+    ],
+    "require": {}
+}

@@ -2,6 +2,7 @@
 
 namespace app\core;
 use app\core\Request;
+use app\core\View;
 
 /**
  *  Class Application
@@ -16,21 +17,24 @@ class Application {
 	 * Used to hold all routes with corresponding http verbs and callbacks
 	 * @var array
 	 */
-	private static array $routesAndCallbacks = [];
+	private array $routesAndCallbacks = [];
 
+	public static Application $app;
 	public Request $request;
+	public View $view;
 
 	public function __construct() {
 		$this->request = new Request();
-
+		$this->view = new View();
+		self::$app = $this;
 	}
 
-	public static function get(string $route, $callback) {
-		self::$routesAndCallbacks['get'][$route] = $callback;
+	public function get(string $route, $callback) {
+		$this->routesAndCallbacks['get'][$route] = $callback;
 	}
 
-	public static function post(string $route, $callback) {
-		self::$routesAndCallbacks['post'][$route] = $callback;
+	public function post(string $route, $callback) {
+		$this->routesAndCallbacks['post'][$route] = $callback;
 	}
 
 	/**
@@ -42,8 +46,17 @@ class Application {
 	public function run() {
 		$httpMethod = $this->request->getMethod();
 		$route = $this->request->getRoute();
+		$callback = $this->routesAndCallbacks[$httpMethod][$route];
 
-		self::$routesAndCallbacks[$httpMethod][$route]();
+		if (is_array($callback)) {
+			$controller = new $callback[0];
+			// call_user_func(array($controller, $callback[1]));
+			echo $controller->{$callback[1]}();
+
+		} else if (is_string($callback)) {
+			return $this->view->renderView($callback);
+		}
+
 	}
 
 }

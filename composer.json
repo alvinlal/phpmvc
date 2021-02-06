@@ -9,5 +9,13 @@
             "email": "alvinzzz2001@gmail.com"
         }
     ],
+    "scripts": {
+        "dev":"php -S localhost:8080"
+    },
+    "autoload": {
+        "psr-4": {
+            "app\\":"."
+        }
+    },
     "require": {}
 }

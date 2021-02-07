@@ -4,19 +4,8 @@ namespace app\core;
 use app\core\Request;
 use app\core\View;
 
-/**
- *  Class Application
- *
- *  Used to instantiate main application object which will hold all the
- *  necessary resources
- *
- */
 class Application {
 
-	/**
-	 * Used to hold all routes with corresponding http verbs and callbacks
-	 * @var array
-	 */
 	private array $routesAndCallbacks = [];
 
 	public static Application $app;
@@ -36,12 +25,6 @@ class Application {
 	public function post(string $route, $callback) {
 		$this->routesAndCallbacks['post'][$route] = $callback;
 	}
-
-	/**
-	 * run
-	 * gets the http verb (method) and url of the request and executes
-	 * the corresponding callback
-	 */
 
 	public function run() {
 		$httpMethod = $this->request->getMethod();

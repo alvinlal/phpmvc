@@ -34,7 +34,7 @@ class Application {
 		if (is_array($callback)) {
 			$controller = new $callback[0];
 			// call_user_func(array($controller, $callback[1]));
-			echo $controller->{$callback[1]}();
+			echo $controller->{$callback[1]}($this->request);
 
 		} else if (is_string($callback)) {
 			echo $this->view->renderViewOnly($callback);

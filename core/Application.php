@@ -37,7 +37,7 @@ class Application {
 			echo $controller->{$callback[1]}();
 
 		} else if (is_string($callback)) {
-			return $this->view->renderView($callback);
+			echo $this->view->renderViewOnly($callback);
 		}
 
 	}

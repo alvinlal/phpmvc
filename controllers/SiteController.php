@@ -3,6 +3,7 @@
 namespace app\controllers;
 use app\core\Controller;
 use app\core\Request;
+use app\core\Response;
 
 class SiteController extends Controller {
 
@@ -10,9 +11,10 @@ class SiteController extends Controller {
 		$this->setLayout('index');
 		return $this->render('index', ['name' => 'alvin']);
 	}
-	public function login(Request $request) {
+	public function login(Request $request, Response $response) {
 		if ($request->isGet()) {
-			return $this->render('login');
+			$response->redirect('/');
+			// return $this->render('login');
 		} else if ($request->isPost()) {
 			echo '<pre>';
 			var_dump($request->getBody());

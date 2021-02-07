@@ -7,5 +7,7 @@ use app\core\Application;
 $app = new Application();
 
 $app->get('/', [SiteController::class, 'index']);
+$app->get('/login', [SiteController::class, 'login']);
+$app->post('/login', [SiteController::class, 'login']);
 
 $app->run();

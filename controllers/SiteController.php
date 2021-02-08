@@ -4,6 +4,7 @@ namespace app\controllers;
 use app\core\Controller;
 use app\core\Request;
 use app\core\Response;
+use app\Models\User;
 
 class SiteController extends Controller {
 
@@ -20,5 +21,11 @@ class SiteController extends Controller {
 			var_dump($request->getBody());
 			echo '</pre>';
 		}
+	}
+	public function dataTest() {
+		$user = new User();
+		$pizzas = $user->getPizzas();
+
+		return $pizzas[0]['title'];
 	}
 }

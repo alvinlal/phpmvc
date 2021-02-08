@@ -3,6 +3,9 @@
 include_once './vendor/autoload.php';
 use app\controllers\SiteController;
 use app\core\Application;
+use app\core\Env;
+
+(new Env(__DIR__ . '/.env'))->load();
 
 $app = new Application();
 

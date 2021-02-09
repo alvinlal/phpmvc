@@ -15,7 +15,6 @@ class SiteController extends Controller {
 	public function login(Request $request, Response $response) {
 		if ($request->isGet()) {
 			$response->redirect('/');
-			// return $this->render('login');
 		} else if ($request->isPost()) {
 			echo '<pre>';
 			var_dump($request->getBody());
@@ -25,8 +24,6 @@ class SiteController extends Controller {
 	public function dataTest() {
 		$user = new User();
 		$pizzas = $user->getPizzas();
-
 		return $pizzas[0]['title'] . '</br>' . $pizzas[0]['email'] . '</br>' . $pizzas[0]['ingredients'] . '</br>';
-
 	}
 }

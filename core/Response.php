@@ -10,5 +10,4 @@ class Response {
 		header("Location:$url");
 	}
 
-	//todo : public function json($obj){}
 }

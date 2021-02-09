@@ -4,7 +4,7 @@ namespace app\core;
 use \PDO;
 
 class Database {
-	public $db;
+	public $sqldb;
 	public string $dbType;
 	private string $DB_NAME;
 	private string $DB_HOST;
@@ -28,9 +28,12 @@ class Database {
 		$this->DB_USER = getenv('DB_USER');
 		$this->DB_PASS = getenv('DB_PASS');
 		$this->DB_DSN = "mysql:host=$this->DB_HOST;dbname=$this->DB_NAME";
-		$this->db = new PDO($this->DB_DSN, $this->DB_USER, $this->DB_PASS);
+		$this->sqldb = new PDO($this->DB_DSN, $this->DB_USER, $this->DB_PASS);
 	}
 	public function query(string $string) {
-		return $this->db->query($string);
+		return $this->sqldb->query($string);
+	}
+	public function prepare(string $sql) {
+		return $this->sqldb->prepare($sql);
 	}
 }

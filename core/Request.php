@@ -7,13 +7,15 @@ class Request {
 	public $body;
 	public $method;
 	public $cookie;
+	public $POST;
 
 	public function __construct() {
 		$this->setParams();
+		$this->POST = $_POST;
 	}
 	public function setParams() {
 		$params = [];
-		parse_str($_SERVER['QUERY_STRING'], $params);
+		array_key_exists('QUERY_STRING', $_SERVER, ) && parse_str($_SERVER['QUERY_STRING'], $params);
 		foreach ($params as $key => $value) {
 			$params[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_SPECIAL_CHARS);
 		}

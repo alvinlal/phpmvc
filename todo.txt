@@ -1,4 +1,7 @@
 1. json response
 2. different error behaviours on production and development
 3. default layout problem
-4. uninitialisaiton of Env problem
+4. Initialise envs inside application and access envs through application and throw error if env object is not initialised 
+5. only sanitize 'output' and sanitize only when necessary
+6. use static functions whenever possible
+7. choose better sanitizing methods if there is

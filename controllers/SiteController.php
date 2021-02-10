@@ -26,4 +26,7 @@ class SiteController extends Controller {
 		$pizzas = $user->getPizzas();
 		return $pizzas[0]['title'] . '</br>' . $pizzas[0]['email'] . '</br>' . $pizzas[0]['ingredients'] . '</br>';
 	}
+	public function queryTest(Request $request) {
+		return $request->params['name'];
+	}
 }

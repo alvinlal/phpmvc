@@ -3,6 +3,22 @@
 namespace app\core;
 
 class Request {
+	public $params;
+	public $body;
+	public $method;
+	public $cookie;
+
+	public function __construct() {
+		$this->setParams();
+	}
+	public function setParams() {
+		$params = [];
+		parse_str($_SERVER['QUERY_STRING'], $params);
+		foreach ($params as $key => $value) {
+			$params[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_SPECIAL_CHARS);
+		}
+		$this->params = $params;
+	}
 	public function getMethod() {
 		return strtolower($_SERVER['REQUEST_METHOD']);
 	}
@@ -36,4 +52,5 @@ class Request {
 
 		return $data;
 	}
+
 }

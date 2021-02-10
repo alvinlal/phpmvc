@@ -8,10 +8,6 @@ class Model extends Database {
 		$stmt = parent::query($sql);
 		$stmt = parent::prepare($sql);
 		$stmt->execute($args);
-		$data = $stmt->fetchAll();
-		if (sizeof($data) === 1) {
-			return $data[0];
-		}
-		return $data;
+		return $stmt->fetchAll();
 	}
 }

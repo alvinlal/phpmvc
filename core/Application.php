@@ -43,9 +43,6 @@ class Application {
 
 			if (is_array($callback)) {
 				$controller = new $callback[0];
-				if (!method_exists($controller, $callback[1])) {
-					throw new InvalidArgumentException("method $callback[1] doesn't exists on class " . get_class($controller));
-				}
 				echo $controller->{$callback[1]}($this->request, $this->response);
 
 			} else if (is_string($callback)) {
@@ -66,9 +63,6 @@ class Application {
 		} else if (is_array($callback)) {
 			if (sizeof($callback) !== 2) {
 				throw new InvalidArgumentException("The array should contain exactly 2 elements");
-			}
-			if (!class_exists($callback[0])) {
-				throw new InvalidArgumentException("class $callback[0] doesn't exist");
 			}
 			if (!is_string($callback[1])) {
 				throw new InvalidArgumentException("second element in the array should be a string, " . gettype($callback[1]) . " give");

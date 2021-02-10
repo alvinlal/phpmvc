@@ -1,2 +1,4 @@
 1. json response
 2. different error behaviours on production and development
+3. default layout problem
+4. uninitialisaiton of Env problem

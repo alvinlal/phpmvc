@@ -52,6 +52,7 @@ class Application {
 				echo $this->view->renderViewOnly($callback);
 			}
 		} catch (RouteNotFoundException $e) {
+			$this->response->statusCode(404);
 			echo $e->getMessage();
 		}
 

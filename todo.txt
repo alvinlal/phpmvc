@@ -5,3 +5,6 @@
 5. only sanitize 'output' and sanitize only when necessary
 6. use static functions whenever possible
 7. choose better sanitizing methods if there is
+8. add csrf protection
+9. automatic class generation
+10. migrations

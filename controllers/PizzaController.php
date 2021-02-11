@@ -10,8 +10,7 @@ class PizzaController extends Controller {
 	public function details(Request $request) {
 		$pizza = new Pizza();
 		$id = $request->params['id'];
-		$this->setLayout('index');
-		return $this->render('details', ['pizza' => $pizza->getPizza($id)[0]]);
+		return $this->render('pizza/details', ['pizza' => $pizza->getPizza($id)[0]]);
 	}
 	public function delete(Request $request, Response $response) {
 		$pizza = new Pizza();
@@ -25,9 +24,8 @@ class PizzaController extends Controller {
 
 	}
 	public function add(Request $request, Response $response) {
-		$this->setLayout('index');
 		if ($request->method == 'GET') {
-			return $this->render('add');
+			return $this->render('pizza/add');
 		} else if ($request->method == 'POST') {
 			$data = $request->getBody();
 			$errors = Pizza::validateInput($data);

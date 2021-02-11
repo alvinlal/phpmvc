@@ -9,7 +9,6 @@ class SiteController extends Controller {
 	public function index() {
 		$pizza = new Pizza();
 		$pizzas = $pizza->getPizzas();
-		$this->setLayout('index');
 		return $this->render('index', ['pizzas' => $pizzas]);
 	}
 

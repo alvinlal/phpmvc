@@ -3,7 +3,7 @@
 namespace app\core;
 
 class View {
-	public string $layout = '';
+	public string $layout = 'index';
 
 	public function setLayout(string $layout) {
 		$this->layout = $layout;

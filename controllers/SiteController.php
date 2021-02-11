@@ -4,7 +4,7 @@ namespace app\controllers;
 use app\core\Controller;
 use app\core\Request;
 use app\core\Response;
-use app\Models\User;
+use app\models\User;
 
 class SiteController extends Controller {
 

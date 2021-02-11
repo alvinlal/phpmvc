@@ -1,6 +1,7 @@
 <?php
 
 include_once './vendor/autoload.php';
+use app\controllers\PizzaController;
 use app\controllers\SiteController;
 use app\core\Application;
 use app\core\Env;
@@ -10,10 +11,9 @@ use app\core\Env;
 $app = new Application();
 
 $app->get('/', [SiteController::class, 'index']);
-$app->get('/login', [SiteController::class, 'login']);
-$app->post('/login', [SiteController::class, 'login']);
-$app->get('/test', [SiteController::class, 'dataTest']);
-$app->get('/empty', [SiteController::class, 'dataTest']);
-$app->get('/query', [SiteController::class, 'queryTest']);
+$app->get('/details', [PizzaController::class, 'details']);
+$app->post('/delete', [PizzaController::class, 'delete']);
+$app->get('/add', [PizzaController::class, 'add']);
+$app->post('/add', [PizzaController::class, 'add']);
 
 $app->run();

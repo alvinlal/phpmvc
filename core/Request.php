@@ -12,10 +12,12 @@ class Request {
 	public function __construct() {
 		$this->setParams();
 		$this->POST = $_POST;
+		$this->method = $_SERVER['REQUEST_METHOD'];
 	}
 	public function setParams() {
 		$params = [];
 		array_key_exists('QUERY_STRING', $_SERVER, ) && parse_str($_SERVER['QUERY_STRING'], $params);
+
 		foreach ($params as $key => $value) {
 			$params[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_SPECIAL_CHARS);
 		}
@@ -51,7 +53,7 @@ class Request {
 				$data[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS);
 			}
 		}
-
+		unset($data['submit']);
 		return $data;
 	}
 

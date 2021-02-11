@@ -4,7 +4,6 @@ namespace app\core;
 use app\core\Application;
 
 class Controller {
-
 	public function setLayout(string $layout) {
 		Application::$app->view->setLayout($layout);
 	}

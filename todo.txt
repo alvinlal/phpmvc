@@ -1,10 +1,11 @@
-1. default layout problem
-2. json response
-3. different error behaviours on production and development
-4. Initialise envs inside application and access envs through application and throw error if env object is not initialised 
-5. only sanitize 'output' and sanitize only when necessary
-6. use static functions whenever possible
-7. choose better sanitizing methods if there is
-8. add csrf protection
-9. automatic class generation
-10. migrations
+default layout problem
+either remove direct html rendering or include feature for seting a layout
+json response
+different error behaviours on production and development
+Initialise envs inside application and access envs through application and throw error if env object is not initialised 
+only sanitize 'output' and sanitize only when necessary
+use static functions whenever possible
+choose better sanitizing methods if there is
+add csrf protection
+automatic class generation
+migrations

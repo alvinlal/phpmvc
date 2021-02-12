@@ -13,6 +13,7 @@ class Request {
 		$this->setParams();
 		$this->POST = $_POST;
 		$this->method = $_SERVER['REQUEST_METHOD'];
+		$this->cookie = $_COOKIE;
 	}
 	public function setParams() {
 		$params = [];
@@ -56,5 +57,7 @@ class Request {
 		unset($data['submit']);
 		return $data;
 	}
-
+	public function getCookie(string $key) {
+		return $this->cookie[$key] ?? null;
+	}
 }

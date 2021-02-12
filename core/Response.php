@@ -9,5 +9,10 @@ class Response {
 	public function redirect($url) {
 		header("Location:$url");
 	}
-
+	public function setCookie(string $key, string $value, array $options) {
+		return setCookie($key, $value, $options);
+	}
+	public function deleteCookie(string $cookie) {
+		return setCookie($cookie, NULL, 0 - 3600);
+	}
 }

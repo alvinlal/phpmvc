@@ -38,6 +38,9 @@
             <a href="/" class="brand-logo brand-text">Ninja Pizza</a>
             <ul id="nav-mobile" class="right hide-on-small-and-down">
                 <li><a href="add" class="btn brand z-depth-0">Add a Pizza</a></li>
+                <li><a href="signup" class="btn brand z-depth-0">signup</a></li>
+                <li><a href="login" class="btn brand z-depth-0">login</a></li>
+
             </ul>
         </div>
     </nav>

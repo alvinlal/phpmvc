@@ -10,7 +10,7 @@ class Pizza extends Model {
 		return $this->select('SELECT id,title,ingredients FROM pizzas ORDER BY created_at');
 	}
 	public function getPizza($id) {
-		return $this->select('SELECT * FROM pizzas WHERE id = ?', [$id]);
+		return $this->selectOne('SELECT * FROM pizzas WHERE id = ?', [$id]);
 	}
 	public function deletePizza($id) {
 		return $this->delete('DELETE FROM pizzas WHERE id = ?', [$id]);

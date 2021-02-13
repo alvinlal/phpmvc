@@ -13,29 +13,32 @@ class AuthController extends Controller {
 		} else if ($request->method == "POST") {
 			$user = new User();
 			$data = $request->getBody();
-			$errors = $user->validateInput($data);
+			$errors = $user->validateSignupInput($data);
 			if (array_filter($errors)) {
-				return $this->render('auth/signup', ['errors' => $errors, 'data' => $data]);
-			} else {
-				if ($user->signup($data)) {
-					header("refresh:4;url=/login");
-					return $this->render('auth/signup', ['success' => true, 'data' => $data]);
-				} else {
-					return "something went wrong on our side!";
-				}
-
+				return $this->render('auth/signup', ['success' => false, 'errors' => $errors, 'data' => $data]);
 			}
+			if ($user->signup($data)) {
+				header("refresh:4;url=/login");
+				return $this->render('auth/signup', ['success' => true, 'data' => $data]);
+			} else {
+				return "something went wrong on our side!";
+			}
+
 		}
 	}
 
-	// public function login(Request $request, Response $response) {
-	// 	if ($request->method == "GET") {
-	// 		return $this->render('auth/login');
-	// 	} else if ($request->method == "POST") {
-	// 		$user = new User();
-	// 		$data = $request->getBody();
-
-	// 	}
-	// }
+	public function login(Request $request, Response $response) {
+		if ($request->method == "GET") {
+			return $this->render('auth/login');
+		} else if ($request->method == "POST") {
+			$user = new User();
+			$data = $request->getBody();
+			$errors = $user->validateLoginInput($data);
+			if (array_filter($errors)) {
+				return $this->render('auth/login', ['errors' => $errors, 'data' => $data]);
+			}
+			return 'login success';
+		}
+	}
 
 }

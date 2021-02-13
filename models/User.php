@@ -5,19 +5,14 @@ use app\core\Model;
 
 class User extends Model {
 	public function signup($data) {
-		$dataToInsert = [];
-		$dataToInsert['name'] = $data['name'];
-		$dataToInsert['username'] = $data['username'];
-		$dataToInsert['email'] = $data['email'];
-		$dataToInsert['password'] = password_hash($data['password'], PASSWORD_DEFAULT, ['cost' => 10]);
 		return $this->insert('INSERT INTO users (name,username,email,password) VALUES(:name,:username,:email,:password)', [
-			'name' => $dataToInsert['name'],
-			'username' => $dataToInsert['username'],
-			'email' => $dataToInsert['email'],
-			'password' => $dataToInsert['password'],
+			'name' => trim($data['name']),
+			'username' => $data['username'],
+			'email' => $data['email'],
+			'password' => password_hash($data['password'], PASSWORD_DEFAULT, ['cost' => 10]),
 		]);
 	}
-	public function validateInput($input) {
+	public function validateSignupInput($input) {
 		$errors = [
 			'name' => '',
 			'username' => '',
@@ -25,7 +20,7 @@ class User extends Model {
 			'password' => [],
 			'confirmPassword' => '',
 		];
-		if (empty($input['name'])) {
+		if (empty(trim($input['name']))) {
 			$errors['name'] = 'Name is required';
 		}
 		if (empty($input['username'])) {
@@ -75,6 +70,32 @@ class User extends Model {
 			}
 		}
 
+		return $errors;
+	}
+	public function validateLoginInput($data) {
+		$errors = [
+			'authKey' => '',
+			'password' => '',
+			'invalidCredentials' => '',
+		];
+
+		if (empty(trim($data['authKey']))) {
+			$errors['authKey'] = 'Please provide a username or email';
+
+		} else {
+			$authKeyExists = $this->exists('SELECT id FROM users WHERE username=:authKey OR email=:authKey', ['authKey' => $data['authKey']]);
+			if (!$authKeyExists) {
+				$errors['invalidCredentials'] = 'Incorrect credentials';
+			}
+		}
+		if (empty($data['password'])) {
+			$errors['password'] = 'Please provide a password';
+		} else if (!$errors['invalidCredentials'] && !$errors['authKey']) {
+			$row = $this->selectOne('SELECT password FROM users WHERE username=:authKey OR email=:authKey', ['authKey' => $data['authKey']]);
+			if (!password_verify($data['password'], $row['password'])) {
+				$errors['invalidCredentials'] = 'Incorrect credentials';
+			}
+		}
 		return $errors;
 	}
 }

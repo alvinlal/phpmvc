@@ -17,4 +17,14 @@ class Model extends Database {
 		$stmt = parent::prepare($sql);
 		return $stmt->execute($args);
 	}
+	public function exists(string $sql, array $args = []) {
+		$stmt = parent::prepare($sql);
+		$stmt->execute($args);
+		$row = $stmt->fetch(\PDO::FETCH_ASSOC);
+		if (!$row) {
+			return false;
+		}
+		return true;
+	}
+
 }

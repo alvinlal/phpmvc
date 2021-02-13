@@ -46,7 +46,7 @@
     </nav>
     {{content}}
     <footer class="section">
-        <div class="center grey-text">&copy; Copyright 2019 Ninja Pizzas</div>
+        <div class="center grey-text">&copy; Copyright 2019 Ninja Pizzas by shaun pelling</div>
     </footer>
 </body>
 

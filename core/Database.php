@@ -29,6 +29,7 @@ class Database {
 		$this->DB_PASS = getenv('DB_PASS');
 		$this->DB_DSN = "mysql:host=$this->DB_HOST;dbname=$this->DB_NAME";
 		$this->sqldb = new PDO($this->DB_DSN, $this->DB_USER, $this->DB_PASS);
+		$this->sqldb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	}
 	public function query(string $string) {
 		return $this->sqldb->query($string);

@@ -10,7 +10,7 @@ class PizzaController extends Controller {
 	public function details(Request $request) {
 		$pizza = new Pizza();
 		$id = $request->params['id'];
-		return $this->render('pizza/details', ['pizza' => $pizza->getPizza($id)[0]]);
+		return $this->render('pizza/details', ['pizza' => $pizza->getPizza($id)]);
 	}
 	public function delete(Request $request, Response $response) {
 		$pizza = new Pizza();

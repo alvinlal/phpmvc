@@ -9,6 +9,12 @@ class Model extends Database {
 		$stmt->execute($args);
 		return $stmt->fetchAll();
 	}
+
+	public function selectOne(string $sql, array $args = []) {
+		$stmt = parent::prepare($sql);
+		$stmt->execute($args);
+		return $stmt->fetch(\PDO::FETCH_ASSOC);
+	}
 	public function insert(string $sql, array $args = []) {
 		$stmt = parent::prepare($sql);
 		return $stmt->execute($args);

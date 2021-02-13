@@ -30,7 +30,7 @@ class PizzaController extends Controller {
 			$data = $request->getBody();
 			$errors = Pizza::validateInput($data);
 			if (array_filter($errors)) {
-				return $this->render('add', ['errors' => $errors, 'data' => $data]);
+				return $this->render('pizza/add', ['errors' => $errors, 'data' => $data]);
 			} else {
 				$pizza = new Pizza();
 				if ($pizza->addPizza($data)) {

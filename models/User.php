@@ -4,6 +4,10 @@ namespace app\models;
 use app\core\Model;
 
 class User extends Model {
+
+	public $id;
+	public $name;
+
 	public function signup($data) {
 		return $this->insert('INSERT INTO users (name,username,email,password) VALUES(:name,:username,:email,:password)', [
 			'name' => trim($data['name']),
@@ -12,6 +16,7 @@ class User extends Model {
 			'password' => password_hash($data['password'], PASSWORD_DEFAULT, ['cost' => 10]),
 		]);
 	}
+
 	public function validateSignupInput($input) {
 		$errors = [
 			'name' => '',
@@ -83,19 +88,22 @@ class User extends Model {
 			$errors['authKey'] = 'Please provide a username or email';
 
 		} else {
-			$authKeyExists = $this->exists('SELECT id FROM users WHERE username=:authKey OR email=:authKey', ['authKey' => $data['authKey']]);
+			$authKeyExists = $this->selectOne('SELECT id,name FROM users WHERE username=:authKey OR email=:authKey', ['authKey' => $data['authKey']]);
 			if (!$authKeyExists) {
 				$errors['invalidCredentials'] = 'Incorrect credentials';
+			} else {
+				$this->id = $authKeyExists['id'];
+				$this->name = $authKeyExists['name'];
 			}
-		}
-		if (empty($data['password'])) {
-			$errors['password'] = 'Please provide a password';
-		} else if (!$errors['invalidCredentials'] && !$errors['authKey']) {
-			$row = $this->selectOne('SELECT password FROM users WHERE username=:authKey OR email=:authKey', ['authKey' => $data['authKey']]);
-			if (!password_verify($data['password'], $row['password'])) {
-				$errors['invalidCredentials'] = 'Incorrect credentials';
+			if (empty($data['password'])) {
+				$errors['password'] = 'Please provide a password';
+			} else if (!$errors['invalidCredentials'] && !$errors['authKey']) {
+				$row = $this->selectOne('SELECT password FROM users WHERE username=:authKey OR email=:authKey', ['authKey' => $data['authKey']]);
+				if (!password_verify($data['password'], $row['password'])) {
+					$errors['invalidCredentials'] = 'Incorrect credentials';
+				}
 			}
+			return $errors;
 		}
-		return $errors;
 	}
 }

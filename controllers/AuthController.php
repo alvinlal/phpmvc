@@ -37,8 +37,15 @@ class AuthController extends Controller {
 			if (array_filter($errors)) {
 				return $this->render('auth/login', ['errors' => $errors, 'data' => $data]);
 			}
-			return 'login success';
+			$this->setSession("userId", $user->id);
+			$this->setSession("name", $user->name);
+			$this->setSession("loggInTime", time());
+			$this->regenerateSession(true);
+			$response->redirect('/');
 		}
 	}
-
+	public function logout(Request $request, Response $response) {
+		$this->removeSession();
+		$response->redirect('/');
+	}
 }

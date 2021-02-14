@@ -2,7 +2,7 @@
     <a href="signup">
         <h4 class="center">Signup</h4>
     </a>
-    <?php if ($success): ?>
+    <?php if (isset($success) && $success): ?>
     <div style="margin:auto;text-align:center">
         <p class="green-text" style="font-size: 24px;">Signup was successfull!</p>
     </div>

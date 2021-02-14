@@ -11,9 +11,9 @@
         <label>Password</label>
         <input type="password" name="password" value="<?=htmlspecialchars($data['password'] ?? '')?>">
         <div class="red-text">
-            <?php if ($errors['password']): ?>
+            <?php if (isset($errors['password']) && $errors['password']): ?>
             <?=$errors['password']?>
-            <?php elseif ($errors['invalidCredentials']): ?>
+            <?php elseif (isset($errors['invalidCredentials'])): ?>
             <?=$errors['invalidCredentials']?>
             <?php endif?>
         </div>

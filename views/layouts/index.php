@@ -37,10 +37,18 @@
         <div class="container">
             <a href="/" class="brand-logo brand-text">Ninja Pizza</a>
             <ul id="nav-mobile" class="right hide-on-small-and-down">
+                <?php if (isset($_SESSION['name'])): ?>
+                <li style="color:grey">
+                    <?php echo "hello " . $_SESSION['name'] ?>
+                </li>
+                <?php endif?>
                 <li><a href="add" class="btn brand z-depth-0">Add a Pizza</a></li>
+                <?php if (!isset($_SESSION['userId'])): ?>
                 <li><a href="signup" class="btn brand z-depth-0">signup</a></li>
                 <li><a href="login" class="btn brand z-depth-0">login</a></li>
-
+                <?php else: ?>
+                <li><a href="logout" class="btn brand z-depth-0">logout</a></li>
+                <?php endif?>
             </ul>
         </div>
     </nav>

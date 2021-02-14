@@ -3,6 +3,7 @@ namespace app\core;
 use app\core\exception\RouteNotFoundException;
 use app\core\Request;
 use app\core\Response;
+use app\core\Session;
 use app\core\View;
 use InvalidArgumentException;
 
@@ -11,6 +12,7 @@ class Application {
 	private array $routesAndCallbacks = [];
 
 	public static Application $app;
+	public Session $session;
 	public Request $request;
 	public Response $response;
 	public View $view;
@@ -18,6 +20,7 @@ class Application {
 	public function __construct() {
 		$this->request = new Request();
 		$this->response = new Response();
+		$this->session = new Session();
 		$this->view = new View();
 		self::$app = $this;
 	}

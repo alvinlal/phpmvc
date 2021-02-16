@@ -25,6 +25,7 @@ class View {
 		foreach ($params as $key => $value) {
 			$$key = $value;
 		}
+		$_FLASH = $_SESSION['flash'];
 		ob_start();
 		include_once __DIR__ . "/../views/$view.php";
 		return ob_get_clean();

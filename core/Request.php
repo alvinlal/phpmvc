@@ -60,4 +60,9 @@ class Request {
 	public function getCookie(string $key) {
 		return $this->cookie[$key] ?? null;
 	}
+	public function body($associative = true, int $flags = 0, int $depth = 512) {
+		$body = file_get_contents("php://input");
+		$object = json_decode($body, $associative, $depth, $flags);
+		return $object;
+	}
 }

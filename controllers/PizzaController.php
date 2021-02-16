@@ -42,5 +42,21 @@ class PizzaController extends Controller {
 			}
 		}
 	}
-
+	public function getJson(Request $request, Response $response) {
+		$obj = [
+			'name' => 'alvin',
+			'age' => 3,
+			'hobbies' => ['movies', 'games', 'tvshows'],
+			'photos' => [
+				'small' => 'https://localhost',
+				'medium' => 'https://localhost',
+			],
+		];
+		return $response->json($obj);
+	}
+	public function postJson(Request $request, Response $response) {
+		$jsonObj = $request->body();
+		print_r($jsonObj);
+		echo $jsonObj['name'];
+	}
 }

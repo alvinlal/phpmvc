@@ -10,7 +10,7 @@ class Response {
 		header("Location:$url");
 	}
 	public function json(array $obj, int $flags = 0, int $depth = 512) {
-		return \json_encode($obj, $flags, $depth);
+		return json_encode($obj, $flags, $depth);
 	}
 	public function setCookie(string $key, string $value, array $options) {
 		return setCookie($key, $value, $options);

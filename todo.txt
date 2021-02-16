@@ -1,4 +1,5 @@
-json response
+json response :done
+router params
 add csrf protection
 add maintenance mode
 migrations
@@ -9,7 +10,7 @@ provide way to pass named assoc array to sql functions inside Model
 pass in data to model constructor and provide default validation methods
 either remove direct html rendering or include feature for seting a layout
 add ability to set default layout other than index 
-flash messages
+flash messages :done
 remove unnecessary methods
 use static functions whenever possible
 different error behaviours on production and development

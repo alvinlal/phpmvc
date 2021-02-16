@@ -1,23 +1,22 @@
 <?php
 namespace app\core;
-use app\core\exception\RouteNotFoundException;
 use app\core\Request;
 use app\core\Response;
+use app\core\Router;
 use app\core\Session;
 use app\core\View;
 use InvalidArgumentException;
 
 class Application {
-
-	private array $routesAndCallbacks = [];
-
 	public static Application $app;
+	public Router $router;
 	public Session $session;
 	public Request $request;
 	public Response $response;
 	public View $view;
 
 	public function __construct() {
+		$this->router = new Router();
 		$this->request = new Request();
 		$this->response = new Response();
 		$this->session = new Session();
@@ -27,35 +26,16 @@ class Application {
 
 	public function get(string $route, $callback) {
 		$this->checkInput($route, $callback);
-		$this->routesAndCallbacks['get'][$route] = $callback;
+		$this->router->get($route, $callback);
 	}
 
 	public function post(string $route, $callback) {
 		$this->checkInput($route, $callback);
-		$this->routesAndCallbacks['post'][$route] = $callback;
+		$this->router->post($route, $callback);
 	}
 
 	public function run() {
-		try {
-			$httpMethod = $this->request->getMethod();
-			$route = $this->request->getRoute();
-			$callback = $this->routesAndCallbacks[$httpMethod][$route] ?? false;
-			if (!$callback) {
-				throw new RouteNotFoundException();
-			}
-
-			if (is_array($callback)) {
-				$controller = new $callback[0];
-				echo $controller->{$callback[1]}($this->request, $this->response);
-
-			} else if (is_string($callback)) {
-				echo $this->view->renderViewOnly($callback);
-			}
-		} catch (RouteNotFoundException $e) {
-			$this->response->statusCode(404);
-			echo $e->getMessage();
-		}
-
+		$this->router->resolve();
 	}
 
 	private function checkInput($route, $callback) {

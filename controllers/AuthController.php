@@ -15,11 +15,12 @@ class AuthController extends Controller {
 			$data = $request->getBody();
 			$errors = $user->validateSignupInput($data);
 			if (array_filter($errors)) {
-				return $this->render('auth/signup', ['success' => false, 'errors' => $errors, 'data' => $data]);
+				return $this->render('auth/signup', ['errors' => $errors, 'data' => $data]);
 			}
 			if ($user->signup($data)) {
 				header("refresh:4;url=/login");
-				return $this->render('auth/signup', ['success' => true, 'data' => $data]);
+				$this->flash('signupSuccess', 'Signup Successfull');
+				return $this->render('auth/signup', ['data' => $data]);
 			} else {
 				return "something went wrong on our side!";
 			}

@@ -22,4 +22,7 @@ class Controller {
 	public function regenerateSession(bool $deleteOld) {
 		Application::$app->session->regenerateSession($deleteOld);
 	}
+	public function flash(string $key, string $value) {
+		Application::$app->session->flash($key, $value);
+	}
 }

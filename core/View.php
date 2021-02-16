@@ -21,6 +21,7 @@ class View {
 	}
 
 	public function renderViewOnly(string $view, array $params = []) {
+
 		foreach ($params as $key => $value) {
 			$$key = $value;
 		}

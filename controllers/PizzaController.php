@@ -7,9 +7,8 @@ use app\core\Response;
 use app\models\Pizza;
 
 class PizzaController extends Controller {
-	public function details(Request $request) {
+	public function details(Request $request, Response $response, $id) {
 		$pizza = new Pizza();
-		$id = $request->params['id'];
 		return $this->render('pizza/details', ['pizza' => $pizza->getPizza($id)]);
 	}
 	public function delete(Request $request, Response $response) {

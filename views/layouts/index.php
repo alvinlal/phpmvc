@@ -42,7 +42,7 @@
                     <?php echo "hello " . $_SESSION['name'] ?>
                 </li>
                 <?php endif?>
-                <li><a href="add" class="btn brand z-depth-0">Add a Pizza</a></li>
+                <li><a href="/add" class="btn brand z-depth-0">Add a Pizza</a></li>
                 <?php if (!isset($_SESSION['userId'])): ?>
                 <li><a href="/auth/signup" class="btn brand z-depth-0">signup</a></li>
                 <li><a href="/auth/login" class="btn brand z-depth-0">login</a></li>

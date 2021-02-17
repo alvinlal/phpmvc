@@ -44,10 +44,10 @@
                 <?php endif?>
                 <li><a href="add" class="btn brand z-depth-0">Add a Pizza</a></li>
                 <?php if (!isset($_SESSION['userId'])): ?>
-                <li><a href="signup" class="btn brand z-depth-0">signup</a></li>
-                <li><a href="login" class="btn brand z-depth-0">login</a></li>
+                <li><a href="/auth/signup" class="btn brand z-depth-0">signup</a></li>
+                <li><a href="/auth/login" class="btn brand z-depth-0">login</a></li>
                 <?php else: ?>
-                <li><a href="logout" class="btn brand z-depth-0">logout</a></li>
+                <li><a href="/auth/logout" class="btn brand z-depth-0">logout</a></li>
                 <?php endif?>
             </ul>
         </div>

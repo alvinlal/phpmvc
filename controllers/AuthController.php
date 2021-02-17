@@ -18,7 +18,7 @@ class AuthController extends Controller {
 				return $this->render('auth/signup', ['errors' => $errors, 'data' => $data]);
 			}
 			if ($user->signup($data)) {
-				header("refresh:4;url=/login");
+				header("refresh:3;url=/auth/login");
 				$this->flash('signupSuccess', 'Signup Successfull');
 				return $this->render('auth/signup', ['data' => $data]);
 			} else {

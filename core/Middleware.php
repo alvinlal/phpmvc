@@ -1,24 +1,29 @@
 <?php
 
 namespace app\core;
-use app\core\Application;
 
 class Middleware {
 	public $start;
-
+	public array $middlewares;
 	public function __construct() {
 		$this->start = function () {
-			dump('start middleware');
+			// dump("last middleware");
 		};
 	}
 	public function add($middleware) {
-		$next = $this->start;
+		$this->middlewares[] = $middleware;
+	}
+	public function setStart() {
 
-		$this->start = function () use ($middleware, $next) {
-			return $middleware(Application::$app->request, Application::$app->response, $next);
-		};
+		for ($i = sizeof($this->middlewares) - 1; $i >= 0; $i--) {
+			$next = $this->start;
+			$this->start = function () use ($i, $next) {
+				return $this->middlewares[$i](Application::$app->request, Application::$app->response, $next);
+			};
+		}
 	}
 	public function resolve() {
+		$this->setStart();
 		return call_user_func($this->start);
 	}
 }

@@ -26,7 +26,7 @@ class Application {
 		$this->middleware = new Middleware();
 		self::$app = $this;
 	}
-	public function middleware($middleware) {
+	public function use ($middleware) {
 		$this->middleware->add($middleware);
 	}
 	public function get(string $route, $callback) {

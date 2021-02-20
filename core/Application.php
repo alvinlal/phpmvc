@@ -1,5 +1,6 @@
 <?php
 namespace app\core;
+use app\core\Middleware;
 use app\core\Request;
 use app\core\Response;
 use app\core\Router;
@@ -14,6 +15,7 @@ class Application {
 	public Request $request;
 	public Response $response;
 	public View $view;
+	public Middleware $middleware;
 
 	public function __construct() {
 		$this->router = new Router();
@@ -21,9 +23,12 @@ class Application {
 		$this->response = new Response();
 		$this->session = new Session();
 		$this->view = new View();
+		$this->middleware = new Middleware();
 		self::$app = $this;
 	}
-
+	public function middleware($middleware) {
+		$this->middleware->add($middleware);
+	}
 	public function get(string $route, $callback) {
 		$this->checkInput($route, $callback);
 		$this->router->get($route, $callback);
@@ -35,6 +40,7 @@ class Application {
 	}
 
 	public function run() {
+		$this->middleware->resolve();
 		$this->router->resolve();
 	}
 

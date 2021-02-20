@@ -8,6 +8,7 @@ class Response {
 	}
 	public function redirect($url) {
 		header("Location:$url");
+		exit();
 	}
 	public function json(array $obj, int $flags = 0, int $depth = 512) {
 		return json_encode($obj, $flags, $depth);

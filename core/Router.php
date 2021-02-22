@@ -5,72 +5,73 @@ use app\core\Application;
 use app\core\exception\RouteNotFoundException;
 
 class Router {
-	private array $routesAndCallbacks = [];
+	private array $routeMap = [];
+	public string $currentRoute;
+	public string $currentMethod;
 
 	public function get(string $route, $callback) {
-		if (preg_match('/{[a-zA-Z0-9_]+}/', $route)) {
-			$regexRoute = $this->convertToRegex($route);
-			$this->routesAndCallbacks['get'][$regexRoute] = $callback;
-		} else {
-			$route = str_replace('/', '\/', $route);
-			$this->routesAndCallbacks['get'][$route] = $callback;
-		}
+		$regexRoute = $this->convertToRegex($route);
+		$this->currentRoute = $regexRoute;
+		$this->currentMethod = 'get';
+		$this->routeMap['get'][$regexRoute]['callbackArray'] = $callback;
+		$this->routeMap['get'][$regexRoute]['middlewares'] = new Middleware();
+
 	}
 
 	public function post(string $route, $callback) {
-		if (preg_match('/{[a-zA-Z0-9_]+}/', $route)) {
-			$regexRoute = $this->convertToRegex($route);
-			$this->routesAndCallbacks['post'][$regexRoute] = $callback;
-		} else {
-			$route = str_replace('/', '\/', $route);
-			$this->routesAndCallbacks['post'][$route] = $callback;
-		}
+		$regexRoute = $this->convertToRegex($route);
+		$this->currentRoute = $regexRoute;
+		$this->currentMethod = 'post';
+		$this->routeMap['post'][$regexRoute]['callbackArray'] = $callback;
+		$this->routeMap['post'][$regexRoute]['middlewares'] = new Middleware();
+
 	}
 
-	public function getArgs(array $params) {
-		return [Application::$app->request, Application::$app->response, ...$params];
+	public function setRouteMiddleware($middleware) {
+		$this->routeMap[$this->currentMethod][$this->currentRoute]['middlewares']->add($middleware);
 	}
 
-	public function resolveCallback(string $httpMethod, string $route) {
+	public function convertToRegex(string $route) {
+		$route = str_replace('/', '\/', $route);
+		$route = preg_replace('/{[a-zA-Z0-9]+}/', '([a-zA-Z0-9]+)', $route);
+		return $route;
+	}
+
+	public function getResults(string $httpMethod, string $route) {
+		$middlewareContent = '';
 		$callbackArray = [];
+		$args = [Application::$app->request, Application::$app->response];
 		$params = [];
-		foreach ($this->routesAndCallbacks[$httpMethod] as $regexRoute => $value) {
+		foreach ($this->routeMap[$httpMethod] as $regexRoute => $valueArray) {
 			if (preg_match("/^$regexRoute$/", $route)) {
-				$callbackArray = $value;
+				$middlewareContent = $valueArray['middlewares']->resolve();
+				$callbackArray = $valueArray['callbackArray'];
 				preg_match_all("/^$regexRoute$/", $route, $params, PREG_SET_ORDER);
 				break;
 			}
 		}
 		if (sizeof($params) == 1) {
 			array_shift($params[0]);
-			return [$callbackArray, $params[0]];
+			return [$middlewareContent, $callbackArray, [...$args, ...$params[0]]];
 		}
-		return [$callbackArray, $params];
-	}
-
-	public function convertToRegex(string $route) {
-		$convertedRoute = str_replace('/', '\/', $route);
-		$convertedRoute = preg_replace('/{[a-zA-Z0-9]+}/', '([a-zA-Z0-9]+)', $convertedRoute);
-		return $convertedRoute;
+		return [$middlewareContent, $callbackArray, [...$args]];
 	}
 
 	public function resolve() {
 		try {
 			$callbackArray = [];
-			$params = [];
+			$args = [];
+			$middlewareContent = '';
 			$httpMethod = Application::$app->request->getMethod();
 			$route = Application::$app->request->getRoute();
-			list($callbackArray, $params) = $this->resolveCallback($httpMethod, $route);
-			// echo '<pre>';
-			// var_dump($params);
-			// echo '</pre>';
+			list($middlewareContent, $callbackArray, $args) = $this->getResults($httpMethod, $route);
+			echo $middlewareContent;
 			if (!$callbackArray) {
 				throw new RouteNotFoundException();
 			}
 
 			if (is_array($callbackArray)) {
 				$controller = new $callbackArray[0];
-				$args = $this->getArgs($params);
 				echo call_user_func_array(array($controller, $callbackArray[1]), $args);
 			} else if (is_string($callbackArray)) {
 				echo Application::$app->view->renderViewOnly($callbackArray);

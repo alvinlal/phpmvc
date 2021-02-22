@@ -3,6 +3,11 @@
         <h4 class="center">Login</h4>
     </a>
     <form class="white" action="login" method="POST">
+        <?php if (isset($_FLASH['notLogedIn'])): ?>
+        <div style="margin:auto;text-align:center">
+            <p class="red-text" style="font-size: 24px;"><?=$_FLASH['notLogedIn']?></p>
+        </div>
+        <?php endif?>
         <label>Username or Email</label>
         <input type="text" name="authKey" value="<?=htmlspecialchars($data['authKey'] ?? '')?>">
         <div class="red-text">

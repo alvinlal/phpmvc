@@ -6,6 +6,7 @@ class Middleware {
 	public $start;
 	public array $middlewares;
 	public function __construct() {
+		$this->middlewares = [];
 		$this->start = function () {
 			// dump("last middleware");
 		};

@@ -21,11 +21,13 @@ class View {
 	}
 
 	public function renderViewOnly(string $view, array $params = []) {
-
 		foreach ($params as $key => $value) {
 			$$key = $value;
 		}
-		$_FLASH = $_SESSION['flash'];
+		$_FLASH = [];
+		foreach ($_SESSION['flash'] as $key => $value) {
+			$_FLASH[$key] = $value['value'];
+		}
 		ob_start();
 		include_once __DIR__ . "/../views/$view.php";
 		return ob_get_clean();

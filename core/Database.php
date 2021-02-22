@@ -1,9 +1,10 @@
 <?php
 
 namespace app\core;
+use app\core\Controller;
 use \PDO;
 
-class Database {
+class Database extends Controller {
 	public $sqldb;
 	public string $dbType;
 	private string $DB_NAME;

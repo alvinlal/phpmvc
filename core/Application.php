@@ -29,14 +29,20 @@ class Application {
 	public function use ($middleware) {
 		$this->middleware->add($middleware);
 	}
+	public function middleware($middleware) {
+		$this->router->setRouteMiddleware($middleware);
+	}
+
 	public function get(string $route, $callback) {
 		$this->checkInput($route, $callback);
 		$this->router->get($route, $callback);
+		return self::$app;
 	}
 
 	public function post(string $route, $callback) {
 		$this->checkInput($route, $callback);
 		$this->router->post($route, $callback);
+		return self::$app;
 	}
 
 	public function run() {

@@ -10,28 +10,20 @@ class Pizza extends Model {
 		return $this->select('SELECT id,title,ingredients FROM pizzas ORDER BY created_at');
 	}
 	public function getPizza($id) {
-		return $this->selectOne('SELECT * FROM pizzas WHERE id = ?', [$id]);
+		return $this->selectOne('SELECT pizzas.id,title,ingredients,users.username,created_at FROM pizzas INNER JOIN users ON pizzas.userId=users.id WHERE pizzas.id=?', [$id]);
 	}
 	public function deletePizza($id) {
 		return $this->delete('DELETE FROM pizzas WHERE id = ?', [$id]);
 	}
 	public function addPizza($data) {
-		return $this->insert("INSERT INTO pizzas(email,title,ingredients) VALUES(:email,:title,:ingredients)", $data);
+		$data['userId'] = $this->getSession('userId');
+		return $this->insert("INSERT INTO pizzas(userId,title,ingredients) VALUES(:userId,:title,:ingredients)", $data);
 	}
 	public static function validateInput($input) {
 		$errors = [
-			'email' => '',
 			'title' => '',
 			'ingredients' => '',
 		];
-		if (empty($input['email'])) {
-			$errors['email'] = 'An email is required';
-		} else {
-			$email = $input['email'];
-			if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-				$errors['email'] = 'Email is not valid';
-			}
-		}
 		if (empty($input['title'])) {
 			$errors['title'] = 'A title is required';
 		} else {

@@ -3,11 +3,6 @@
         <h4 class="center">Add a Pizza</h4>
     </a>
     <form class="white" action="add" method="POST">
-        <label>Your Email</label>
-        <input type="text" name="email" value="<?=htmlspecialchars($data['email'] ?? '')?>">
-        <div class="red-text">
-            <?=$errors['email'] ?? ''?>
-        </div>
         <label>Pizza Title</label>
         <input type="text" name="title" value="<?=htmlspecialchars($data['title'] ?? '')?>">
         <div class="red-text">

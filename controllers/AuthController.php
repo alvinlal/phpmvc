@@ -41,7 +41,6 @@ class AuthController extends Controller {
 			$this->setSession("userId", $user->id);
 			$this->setSession("name", $user->name);
 			$this->setSession("loggInTime", time());
-			$this->regenerateSession(true);
 			$response->redirect('/');
 		}
 	}

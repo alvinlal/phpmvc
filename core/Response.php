@@ -19,4 +19,8 @@ class Response {
 	public function deleteCookie(string $cookie) {
 		return setCookie($cookie, NULL, 0 - 3600);
 	}
+	public function send(string $content) {
+		echo $content;
+		exit();
+	}
 }

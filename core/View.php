@@ -28,6 +28,7 @@ class View {
 		foreach ($_SESSION['flash'] as $key => $value) {
 			$_FLASH[$key] = $value['value'];
 		}
+		$_csrfToken = $_SESSION['csrfToken'];
 		ob_start();
 		include_once __DIR__ . "/../views/$view.php";
 		return ob_get_clean();

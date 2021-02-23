@@ -16,6 +16,12 @@ class Session {
 		}
 		$_SESSION[self::FLASH_KEY] = $flashMessages;
 
+		$csrfToken = bin2hex(random_bytes(24));
+		if (!isset($_SESSION['csrfToken']) || !isset($_COOKIE['XSRF_TOKEN'])) {
+			$_SESSION['csrfToken'] = $csrfToken;
+			setcookie('XSRF_TOKEN', $csrfToken, ["samesite" => "strict", "expires" => time() + 172800, "path" => "/"]);
+		}
+
 	}
 	public function setSession($key, $value) {
 		$_SESSION[$key] = $value;
@@ -24,11 +30,9 @@ class Session {
 		return $_SESSION[$key] ?? false;
 	}
 	public function removeSession() {
+		session_regenerate_id(true);
 		session_unset();
 		session_destroy();
-	}
-	public function regenerateSession(bool $deleteOld) {
-		session_regenerate_id($deleteOld);
 	}
 	public function flash(string $key, string $value) {
 		$_SESSION[self::FLASH_KEY][$key] = [

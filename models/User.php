@@ -77,16 +77,15 @@ class User extends Model {
 
 		return $errors;
 	}
+
 	public function validateLoginInput($data) {
 		$errors = [
 			'authKey' => '',
 			'password' => '',
 			'invalidCredentials' => '',
 		];
-
 		if (empty(trim($data['authKey']))) {
 			$errors['authKey'] = 'Please provide a username or email';
-
 		} else {
 			$authKeyExists = $this->selectOne('SELECT id,name FROM users WHERE username=:authKey OR email=:authKey', ['authKey' => $data['authKey']]);
 			if (!$authKeyExists) {
@@ -95,6 +94,7 @@ class User extends Model {
 				$this->id = $authKeyExists['id'];
 				$this->name = $authKeyExists['name'];
 			}
+
 			if (empty($data['password'])) {
 				$errors['password'] = 'Please provide a password';
 			} else if (!$errors['invalidCredentials'] && !$errors['authKey']) {
@@ -103,7 +103,9 @@ class User extends Model {
 					$errors['invalidCredentials'] = 'Incorrect credentials';
 				}
 			}
-			return $errors;
+
 		}
+		return $errors;
+
 	}
 }

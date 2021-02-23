@@ -4,6 +4,7 @@ namespace app\core;
 
 class Request {
 	public $params;
+	public $inputs;
 	public $body;
 	public $method;
 	public $cookie;
@@ -14,6 +15,7 @@ class Request {
 		$this->POST = $_POST;
 		$this->method = $_SERVER['REQUEST_METHOD'];
 		$this->cookie = $_COOKIE;
+		$this->inputs = $this->getBody();
 	}
 	public function setParams() {
 		$params = [];
@@ -23,6 +25,9 @@ class Request {
 			$params[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_SPECIAL_CHARS);
 		}
 		$this->params = $params;
+	}
+	public function param(string $key) {
+		return $this->params[$key] ?? false;
 	}
 	public function getMethod() {
 		return strtolower($_SERVER['REQUEST_METHOD']);
@@ -55,10 +60,14 @@ class Request {
 			}
 		}
 		unset($data['submit']);
+		$this->inputs = $data;
 		return $data;
 	}
 	public function getCookie(string $key) {
 		return $this->cookie[$key] ?? null;
+	}
+	public function input(string $key) {
+		return $this->inputs[$key] ?? false;
 	}
 	public function body($associative = true, int $flags = 0, int $depth = 512) {
 		$body = file_get_contents("php://input");

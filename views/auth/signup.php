@@ -36,6 +36,7 @@
         <div class="red-text">
             <?=$errors['confirmPassword'] ?? ''?>
         </div>
+        <input type="hidden" name="_csrf" value="<?=$_csrfToken?>" />
         <div class="center">
             <input type="submit" value="submit" class="btn brand z-depth-0">
         </div>

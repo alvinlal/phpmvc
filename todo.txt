@@ -11,9 +11,10 @@ pass in data to model constructor and provide default validation methods
 either remove direct html rendering or include feature for seting a layout
 add ability to set default layout other than index 
 flash messages :done
-remove unnecessary methods
+remove unnecessary methods (in cookies and sessions mainly)
 use static functions whenever possible
 different error behaviours on production and development
+make cookies secure in production
 Initialise envs inside application and access envs through application and throw error if env object is not initialised 
 only sanitize 'output' and sanitize only when necessary (remove unnecessary sanitization)
 choose better sanitizing methods if there is

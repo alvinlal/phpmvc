@@ -28,30 +28,18 @@ class Csrf {
 		if (in_array($route, $this->config['ignore'])) {
 			return $next();
 		}
-		$lookInCookie = $this->config['lookInCookie'];
-		if ($lookInCookie) {
-
-			if (!isset($_COOKIE['XSRF_TOKEN'])) {
-				return $response->send("invalid csrf token");
-			}
-
-			$isValid = $this->verify($_COOKIE['XSRF_TOKEN']);
-			if (!$isValid) {
-				$response->send('invalid csrf token');
-			} else {
-				return $next();
-			}
-		} else {
-			$token = $request->input('_csrf');
-			if (!$token) {
-				return $response->send("invalid csrf token");
-			}
-			$isValid = $this->verify($token);
-			if (!$isValid) {
-				$response->send('invalid csrf token');
-			} else {
-				return $next();
-			}
+		if (!isset($_COOKIE['XSRF_TOKEN']) || !$request->input('_csrf')) {
+			return $response->send("invalid csrf token");
 		}
+		$lookInCookie = $this->config['lookInCookie'];
+		$incomingToken = $lookInCookie ? $_COOKIE['XSRF_TOKEN'] : $request->input('_csrf');
+		if (!$incomingToken) {
+			return $response->send("invalid csrf token");
+		}
+		$isValid = $this->verify($incomingToken);
+		if (!$isValid) {
+			return $response->send("invalid csrf token");
+		}
+		return $next();
 	}
 }

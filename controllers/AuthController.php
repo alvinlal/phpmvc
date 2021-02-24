@@ -40,7 +40,7 @@ class AuthController extends Controller {
 			}
 			$this->setSession("userId", $user->id);
 			$this->setSession("name", $user->name);
-			$this->setSession("loggInTime", time());
+			$this->setSession("logInTime", time());
 			$response->redirect('/');
 		}
 	}

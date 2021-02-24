@@ -19,9 +19,6 @@ class Controller {
 	public function removeSession() {
 		Application::$app->session->removeSession();
 	}
-	public function regenerateSession(bool $deleteOld) {
-		Application::$app->session->regenerateSession($deleteOld);
-	}
 	public function flash(string $key, string $value) {
 		Application::$app->session->flash($key, $value);
 	}

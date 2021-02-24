@@ -26,7 +26,7 @@ class Request {
 		}
 		$this->params = $params;
 	}
-	public function param(string $key) {
+	public function query(string $key) {
 		return $this->params[$key] ?? false;
 	}
 	public function getMethod() {

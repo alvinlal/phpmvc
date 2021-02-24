@@ -1,5 +1,6 @@
 <?php
 namespace app\core;
+use app\core\FileStorage;
 use app\core\Middleware;
 use app\core\Request;
 use app\core\Response;
@@ -10,20 +11,24 @@ use InvalidArgumentException;
 
 class Application {
 	public static Application $app;
+	public string $rootDir;
 	public Router $router;
 	public Session $session;
 	public Request $request;
 	public Response $response;
 	public View $view;
+	public FileStorage $fileStorage;
 	public Middleware $middleware;
 
-	public function __construct() {
+	public function __construct(string $rootDir) {
+		$this->rootDir = $rootDir;
 		$this->router = new Router();
 		$this->request = new Request();
 		$this->response = new Response();
 		$this->session = new Session();
 		$this->view = new View();
 		$this->middleware = new Middleware();
+		$this->fileStorage = new FileStorage();
 		self::$app = $this;
 	}
 	public function use ($middleware) {

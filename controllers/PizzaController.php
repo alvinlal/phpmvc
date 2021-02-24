@@ -13,7 +13,7 @@ class PizzaController extends Controller {
 	}
 	public function delete(Request $request, Response $response) {
 		$pizza = new Pizza();
-		$id_to_delete = $request->POST['id_to_delete'];
+		$id_to_delete = $request->inputs['id_to_delete'];
 		if ($pizza->deletePizza($id_to_delete)) {
 
 			$response->redirect('/');

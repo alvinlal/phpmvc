@@ -17,12 +17,21 @@ class Pizza extends Model {
 	}
 	public function addPizza($data) {
 		$data['userId'] = $this->getSession('userId');
-		return $this->insert("INSERT INTO pizzas(userId,title,ingredients) VALUES(:userId,:title,:ingredients)", $data);
+		unset($data['photo']);
+		$fileName = $this->upload("pizzas", "photo");
+		if ($fileName) {
+			$data['image'] = $fileName;
+		} else {
+			return false;
+		}
+
+		return $this->insert("INSERT INTO pizzas(userId,title,ingredients,image) VALUES(:userId,:title,:ingredients,:image)", $data);
 	}
 	public static function validateInput($input) {
 		$errors = [
 			'title' => '',
 			'ingredients' => '',
+			'photo' => [],
 		];
 		if (empty($input['title'])) {
 			$errors['title'] = 'A title is required';
@@ -40,6 +49,18 @@ class Pizza extends Model {
 				$errors['ingredients'] = 'Ingredients must be a comma separated list';
 			}
 		}
+		if ($input['photo']['error'] == UPLOAD_ERR_NO_FILE) {
+			array_push($errors['photo'], "Please select a photo");
+		} else {
+			$fileTypes = ['jpg', 'png', 'jpeg'];
+			if ($input['photo']['error'] == UPLOAD_ERR_INI_SIZE) {
+				array_push($errors['photo'], "file Size must be less than 2mb");
+			}
+			if (!in_array($input['photo']['ext'], $fileTypes)) {
+				array_push($errors['photo'], "file format not suported");
+			}
+		}
+
 		return $errors;
 	}
 }

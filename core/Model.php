@@ -9,7 +9,6 @@ class Model extends Database {
 		$stmt->execute($args);
 		return $stmt->fetchAll();
 	}
-
 	public function selectOne(string $sql, array $args = []) {
 		$stmt = parent::prepare($sql);
 		$stmt->execute($args);
@@ -31,6 +30,9 @@ class Model extends Database {
 			return false;
 		}
 		return true;
+	}
+	public function upload(string $folderName, string $fileName) {
+		return Application::$app->fileStorage->put($folderName, $fileName);
 	}
 
 }

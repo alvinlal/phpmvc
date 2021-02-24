@@ -8,6 +8,7 @@
     <!-- DELETE FORM -->
     <form action="/delete" method="POST">
         <input type="hidden" name="id_to_delete" value="<?php echo $pizza['id']; ?>">
+        <input type="hidden" name="_csrf" value="<?=$_csrfToken?>" />
         <input type="submit" name="delete" value="Delete" class="btn brand z-depth-0">
     </form>
     <?php else: ?>

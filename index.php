@@ -8,7 +8,7 @@ use app\core\Env;
 
 (new Env(__DIR__ . '/.env'))->load();
 
-$app = new Application();
+$app = new Application(__DIR__);
 
 $app->use(new Csrf(["ignore" => ['/path']]));
 

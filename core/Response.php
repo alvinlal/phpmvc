@@ -11,6 +11,7 @@ class Response {
 		exit();
 	}
 	public function json(array $obj, int $flags = 0, int $depth = 512) {
+		header('Content-Type:application/json');
 		return json_encode($obj, $flags, $depth);
 	}
 	public function setCookie(string $key, string $value, array $options) {

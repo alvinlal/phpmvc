@@ -3,6 +3,7 @@
 namespace app\Models;
 
 use app\core\Model;
+use PDOException;
 
 class Pizza extends Model {
 
@@ -15,17 +16,46 @@ class Pizza extends Model {
 	public function deletePizza($id) {
 		return $this->delete('DELETE FROM pizzas WHERE id = ?', [$id]);
 	}
+	public function addPizzaPhoto() {
+		$photo = [];
+
+		$uploadPath = __DIR__ . '/../public/uploads/pizzas/';
+		$fileName = $this->upload($uploadPath, "photo");
+		$filePath = $uploadPath . $fileName;
+		$fileSize = filesize($filePath);
+		$contentType = mime_content_type($filePath);
+		$lastModified = date(DATE_RFC822, filemtime($filePath));
+
+		$photo['filename'] = $fileName;
+		$photo['contentType'] = $contentType;
+		$photo['last_modified'] = $lastModified;
+		$photo['size'] = $fileSize;
+
+		if ($fileName) {
+			return $photo;
+		}
+		return false;
+	}
 	public function addPizza($data) {
 		$data['userId'] = $this->getSession('userId');
 		unset($data['photo']);
-		$fileName = $this->upload("pizzas", "photo");
-		if ($fileName) {
-			$data['image'] = $fileName;
-		} else {
+		$photo = $this->addPizzaPhoto();
+		if (!$photo) {
 			return false;
 		}
-
-		return $this->insert("INSERT INTO pizzas(userId,title,ingredients,image) VALUES(:userId,:title,:ingredients,:image)", $data);
+		$this->beginTransaction();
+		try {
+			$this->insert("INSERT INTO images(contentType,last_modified,size,filename) VALUES(:contentType,:last_modified,:size,:filename)", $photo);
+			$photoId = $this->lastInsertId();
+			$data['imageId'] = $photoId;
+			$this->insert("INSERT INTO pizzas(title,userId,ingredients,imageId) VALUES(:title,:userId,:ingredients,:imageId)", $data);
+			$this->commit();
+			return true;
+		} catch (PDOException $e) {
+			echo $e->getMessage();
+			$this->rollback();
+			return false;
+		}
 	}
 	public static function validateInput($input) {
 		$errors = [

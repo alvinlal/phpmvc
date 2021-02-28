@@ -18,3 +18,5 @@ $app->post('/add', [PizzaController::class, 'add'])
 $app->get('/json', [PizzaController::class, 'getJson']);
 
 $app->post('/json', [PizzaController::class, 'postJson']);
+
+$app->get('/image/{id}', [PizzaController::class, 'image']);

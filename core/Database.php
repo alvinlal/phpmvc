@@ -38,4 +38,16 @@ class Database extends Controller {
 	public function prepare(string $sql) {
 		return $this->sqldb->prepare($sql);
 	}
+	public function beginTransaction() {
+		$this->sqldb->beginTransaction();
+	}
+	public function rollBack() {
+		$this->sqldb->rollBack();
+	}
+	public function commit() {
+		$this->sqldb->commit();
+	}
+	public function lastInsertId() {
+		return $this->sqldb->lastInsertId();
+	}
 }

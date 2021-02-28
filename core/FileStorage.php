@@ -4,30 +4,25 @@ namespace app\core;
 use app\core\Application;
 
 class FileStorage {
-	public string $uploadDir;
-	public function __construct() {
-		if (getenv("FILESTORAGE_DIR")) {
-			$this->uploadDir = getenv("FILESTORAGE_DIR");
-		} else {
-			$this->uploadDir = "uploads";
-		}
-	}
-	public function put(string $folderName, string $fileName) {
+	public function put(string $uploadPath, string $fileName) {
 		$file = Application::$app->request->input($fileName);
-		$rootDir = Application::$app->rootDir;
+		if ($uploadPath[-1] == '/') {
+			substr_replace($uploadPath, "", -1);
+		}
 		if (!$file) {
 			return false;
 		}
 
 		$fileExt = $file['ext'];
-		$uploadName = uniqid('', true) . "." . $fileExt;
-		$uploadDir = $rootDir . "/public/$this->uploadDir/" . $folderName;
-		$uploadPath = $uploadDir . "/" . $uploadName;
+		$uploadName = bin2hex(random_bytes(10)) . "." . $fileExt;
+		$uploadPathWithFilename = $uploadPath . "/" . $uploadName;
 		$tempPath = $file['tmp_name'];
-		if (!is_dir($uploadDir)) {
-			mkdir($uploadDir, $mode = 0777, $recursive = true);
+
+		if (!is_dir($uploadPath)) {
+			mkdir($uploadPath, 0777, true);
 		}
-		if (!move_uploaded_file($tempPath, $uploadPath)) {
+
+		if (!move_uploaded_file($tempPath, $uploadPathWithFilename)) {
 			return false;
 		}
 		return $uploadName;

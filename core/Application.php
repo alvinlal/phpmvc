@@ -11,7 +11,7 @@ use InvalidArgumentException;
 
 class Application {
 	public static Application $app;
-	public string $rootDir;
+	public static string $rootDir;
 	public Router $router;
 	public Session $session;
 	public Request $request;
@@ -21,7 +21,7 @@ class Application {
 	public Middleware $middleware;
 
 	public function __construct(string $rootDir) {
-		$this->rootDir = $rootDir;
+		self::$rootDir = $rootDir;
 		$this->router = new Router();
 		$this->request = new Request();
 		$this->response = new Response();

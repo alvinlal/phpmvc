@@ -4,6 +4,18 @@ namespace app\core;
 use app\core\Database;
 
 class Model extends Database {
+	public function beginTransaction() {
+		parent::beginTransaction();
+	}
+	public function lastInsertId() {
+		return parent::lastInsertId();
+	}
+	public function rollback() {
+		parent::rollBack();
+	}
+	public function commit() {
+		parent::commit();
+	}
 	public function select(string $sql, array $args = []) {
 		$stmt = parent::prepare($sql);
 		$stmt->execute($args);
@@ -31,8 +43,8 @@ class Model extends Database {
 		}
 		return true;
 	}
-	public function upload(string $folderName, string $fileName) {
-		return Application::$app->fileStorage->put($folderName, $fileName);
+	public function upload(string $uploadPath, string $fileName) {
+		return Application::$app->fileStorage->put($uploadPath, $fileName);
 	}
 
 }

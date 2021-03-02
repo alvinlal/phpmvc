@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ninja Pizza</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" href="/public/css/index.css">
-
+    <link rel="stylesheet" href="/css/index.css">
+    <script src="/js/index.js"></script>
     <style type="text/css">
     .brand {
         background: #cbb09c !important;

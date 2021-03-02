@@ -6,7 +6,7 @@ use app\core\Application;
 use app\core\Csrf;
 use app\core\Env;
 
-(new Env(__DIR__ . '/.env'))->load();
+(new Env(__DIR__ . '/.env.dev'))->load();
 
 $app = new Application(__DIR__);
 

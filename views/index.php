@@ -4,10 +4,10 @@
     <div class="row">
 
         <?php foreach ($pizzas as $pizza) {?>
-
         <div class="col s6 md3">
             <div class="card z-depth-0">
                 <div class="card-content center">
+                    <img src="/images/pizzas/<?=$pizza['filename']?>" height="200" width="200" style="border-radius:5px" />
                     <h6><?php echo htmlspecialchars($pizza['title']); ?></h6>
                     <ul class="grey-text">
                         <?php foreach (explode(',', $pizza['ingredients']) as $ing) {?>
@@ -20,7 +20,6 @@
                 </div>
             </div>
         </div>
-
         <?php }?>
 
     </div>

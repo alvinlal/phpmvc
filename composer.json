@@ -1,6 +1,6 @@
 {
-    "name": "alvin/phpmvc",
-    "description": "A lightweight mvc framework for php",
+    "name": "alvin/ninjapizza",
+    "description": "A simple crud app for learning php",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -10,7 +10,7 @@
         }
     ],
     "scripts": {
-        "dev":"php -S localhost:8080"
+        "dev":"docker-compose -f docker-compose-dev.yml up --build"
     },
     "autoload": {
         "psr-4": {

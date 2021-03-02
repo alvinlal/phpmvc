@@ -41,9 +41,6 @@ class PizzaController extends Controller {
 			}
 		}
 	}
-	public function image(Request $request, Response $response, $id) {
-
-	}
 	public function getJson(Request $request, Response $response) {
 		$obj = [
 			'name' => 'alvin',

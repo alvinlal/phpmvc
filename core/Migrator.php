@@ -22,7 +22,7 @@ class Migrator {
 		$this->DB_PORT = getenv('DB_PORT');
 		$this->DB_USER = getenv('DB_USER');
 		$this->DB_PASS = getenv('DB_PASS');
-		$this->DB_DSN = "mysql:host=$this->DB_HOST;dbname=$this->DB_NAME";
+		$this->DB_DSN = "mysql:host=$this->DB_HOST;port=$this->DB_PORT;dbname=$this->DB_NAME";
 		$this->db = new PDO($this->DB_DSN, $this->DB_USER, $this->DB_PASS);
 		$this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	}

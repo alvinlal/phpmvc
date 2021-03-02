@@ -3,7 +3,7 @@
 namespace app\core;
 
 class Env {
-	private string $path;
+	public string $path;
 
 	public function __construct(string $path) {
 		if (!file_exists($path)) {

@@ -8,10 +8,10 @@ use PDOException;
 class Pizza extends Model {
 
 	public function getPizzas() {
-		return $this->select('SELECT id,title,ingredients FROM pizzas ORDER BY created_at');
+		return $this->select('SELECT pizzas.id,title,ingredients,filename FROM pizzas JOIN images ON pizzas.imageId=images.id ORDER BY created_at');
 	}
 	public function getPizza($id) {
-		return $this->selectOne('SELECT pizzas.id,title,ingredients,users.username,created_at FROM pizzas INNER JOIN users ON pizzas.userId=users.id WHERE pizzas.id=?', [$id]);
+		return $this->selectOne('SELECT pizzas.id,title,ingredients,users.username,created_at,filename FROM pizzas INNER JOIN users ON pizzas.userId=users.id JOIN images ON pizzas.imageId=images.id WHERE pizzas.id=?', [$id]);
 	}
 	public function deletePizza($id) {
 		return $this->delete('DELETE FROM pizzas WHERE id = ?', [$id]);

@@ -8,13 +8,13 @@ flash messages :done
 different error behaviours on production and development : done
 improve error handling(especialy db error handling) : done
 add maintenance mode
+make cookies secure in production
 automatic class generation
 provide way to pass named assoc array to sql functions inside Model
 pass in data to model constructor and provide default validation methods
 add ability to set default layout other than index 
 remove unnecessary methods (in cookies and sessions mainly)
 use static functions whenever possible
-make cookies secure in production
 Initialise envs inside application and access envs through application and throw error if env object is not initialised 
 only sanitize 'output' and sanitize only when necessary (remove unnecessary sanitization)
 choose better sanitizing methods if there is

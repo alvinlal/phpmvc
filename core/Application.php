@@ -38,15 +38,15 @@ class Application {
 		$this->router->setRouteMiddleware($middleware);
 	}
 
-	public function get(string $route, $callback) {
-		$this->checkInput($route, $callback);
-		$this->router->get($route, $callback);
+	public function get(string $route, $resolvable) {
+		$this->checkInput($route, $resolvable);
+		$this->router->get($route, $resolvable);
 		return self::$app;
 	}
 
-	public function post(string $route, $callback) {
-		$this->checkInput($route, $callback);
-		$this->router->post($route, $callback);
+	public function post(string $route, $resolvable) {
+		$this->checkInput($route, $resolvable);
+		$this->router->post($route, $resolvable);
 		return self::$app;
 	}
 
@@ -55,21 +55,21 @@ class Application {
 		$this->router->resolve();
 	}
 
-	private function checkInput($route, $callback) {
+	private function checkInput($route, $resolvable) {
 		if (strpos($route, '/') !== 0) {
 			throw new InvalidArgumentException("The route should begin with a '/', $route given");
-		} else if (is_string($callback)) {
+		} else if (is_string($resolvable)) {
 			return;
-		} else if (is_array($callback)) {
-			if (sizeof($callback) !== 2) {
+		} else if (is_array($resolvable)) {
+			if (sizeof($resolvable) !== 2) {
 				throw new InvalidArgumentException("The array should contain exactly 2 elements");
 			}
-			if (!is_string($callback[1])) {
-				throw new InvalidArgumentException("second element in the array should be a string, " . gettype($callback[1]) . " give");
+			if (!is_string($resolvable[1])) {
+				throw new InvalidArgumentException("second element in the array should be a string, " . gettype($resolvable[1]) . " given");
 			}
 			return;
 		} else {
-			throw new InvalidArgumentException("second argument should be an array containing a classname and method name or a string");
+			throw new InvalidArgumentException("second argument should be an array containing a classname and method name or a name of view");
 		}
 	}
 

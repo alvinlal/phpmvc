@@ -1,16 +1,16 @@
 json response :done
 router params :done
-add csrf protection
+add csrf protection :done
 add maintenance mode
-migrations
+migrations :done
+exit() after redirection :done
+either remove direct html rendering or include feature for seting a layout :done
+flash messages :done
 automatic class generation
-exit() after redirection
 improve error handling(especialy db error handling)
 provide way to pass named assoc array to sql functions inside Model
 pass in data to model constructor and provide default validation methods
-either remove direct html rendering or include feature for seting a layout
 add ability to set default layout other than index 
-flash messages :done
 remove unnecessary methods (in cookies and sessions mainly)
 use static functions whenever possible
 different error behaviours on production and development

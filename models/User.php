@@ -16,7 +16,6 @@ class User extends Model {
 			'password' => password_hash($data['password'], PASSWORD_DEFAULT, ['cost' => 10]),
 		]);
 	}
-
 	public function validateSignupInput($input) {
 		$errors = [
 			'name' => '',

@@ -1,11 +1,11 @@
 json response :done
 router params :done
 add csrf protection :done
-add maintenance mode
 migrations :done
 exit() after redirection :done
 either remove direct html rendering or include feature for seting a layout :done
 flash messages :done
+add maintenance mode
 automatic class generation
 improve error handling(especialy db error handling)
 provide way to pass named assoc array to sql functions inside Model

@@ -10,9 +10,6 @@ class View {
 	}
 
 	public function renderView(string $view, array $params) {
-		if (!$this->layout) {
-			return $this->renderViewOnly($view, $params);
-		}
 		ob_start();
 		include __DIR__ . "/../views/layouts/$this->layout.php";
 		$layoutContent = ob_get_clean();
@@ -32,5 +29,6 @@ class View {
 		ob_start();
 		include_once __DIR__ . "/../views/$view.php";
 		return ob_get_clean();
+
 	}
 }

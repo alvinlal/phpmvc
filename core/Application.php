@@ -1,12 +1,14 @@
 <?php
 namespace app\core;
-use app\core\FileStorage;
-use app\core\Middleware;
-use app\core\Request;
-use app\core\Response;
-use app\core\Router;
-use app\core\Session;
 use app\core\View;
+use app\core\Router;
+use app\core\Request;
+use app\core\Session;
+use app\core\Response;
+use app\core\Middleware;
+use app\core\FileStorage;
+use app\core\ErrorHandler;
+use app\core\ExceptionHandler;
 use InvalidArgumentException;
 
 class Application {
@@ -21,6 +23,7 @@ class Application {
 	public Middleware $middleware;
 
 	public function __construct(string $rootDir) {
+		$this->setErrorHandlers();
 		self::$rootDir = $rootDir;
 		$this->router = new Router();
 		$this->request = new Request();
@@ -30,6 +33,12 @@ class Application {
 		$this->middleware = new Middleware();
 		$this->fileStorage = new FileStorage();
 		self::$app = $this;
+	}
+	public function setErrorHandlers() {
+		if (getenv("ENV") == "development" || !getenv("ENV")) {
+			set_exception_handler([ExceptionHandler::class, 'handle']);
+			set_error_handler([ErrorHandler::class, 'handle']);
+		}
 	}
 	public function use ($middleware) {
 		$this->middleware->add($middleware);

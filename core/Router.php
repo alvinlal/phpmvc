@@ -68,17 +68,20 @@ class Router {
 			echo $middlewareContent;
 			if (!$resolvable) {
 				throw new RouteNotFoundException();
+				exit();
 			}
-
 			if (is_array($resolvable)) {
 				$controller = new $resolvable[0];
 				echo call_user_func_array(array($controller, $resolvable[1]), $args);
+				exit();
 			} else if (is_string($resolvable)) {
 				echo Application::$app->view->renderViewOnly($resolvable);
+				exit();
 			}
 		} catch (RouteNotFoundException $e) {
 			Application::$app->response->statusCode(404);
 			echo $e->getMessage();
+			exit();
 		}
 	}
 

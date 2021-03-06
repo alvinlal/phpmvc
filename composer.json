@@ -11,7 +11,8 @@
     ],
     "scripts": {
         "dev-docker":"docker-compose -f docker-compose-dev.yml up --build",
-        "dev-local":"php -S localhost:8000"
+        "dev-local":"php -S localhost:8000",
+        "start":"docker-compose up --build"
         
     },
     "autoload": {

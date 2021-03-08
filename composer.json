@@ -1,26 +1,11 @@
 {
-    "name": "alvin/ninjapizza",
-    "description": "A simple crud app for learning php",
-    "type": "library",
-    "license": "MIT",
+    "name": "alvin/phpmvc",
+    "description": "A simple php mvc framework",
     "authors": [
         {
             "name": "alvinlal",
             "email": "alvinzzz2001@gmail.com"
         }
     ],
-    "scripts": {
-        "dev-docker":"docker-compose -f docker-compose-dev.yml up --build",
-        "dev-local":"php -S localhost:8000",
-        "start":"docker-compose up --build"
-        
-    },
-    "autoload": {
-        "psr-4": {
-            "app\\":"."
-        }
-    },
-    "require-dev": {
-        "symfony/var-dumper": "^5.2"
-    }
+    "require": {}
 }

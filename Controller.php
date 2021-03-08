@@ -1,7 +1,6 @@
 <?php
 
-namespace app\core;
-use app\core\Application;
+namespace alvin\phpmvc;
 
 class Controller {
 	public function setLayout(string $layout) {

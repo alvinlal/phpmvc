@@ -1,9 +1,6 @@
 <?php
 
-namespace app\core;
-use app\core\Application;
-use Exception;
-use PDO;
+namespace alvin\phpmvc;
 
 class Migrator {
 	private $db;
@@ -23,8 +20,8 @@ class Migrator {
 		$this->DB_USER = getenv('DB_USER');
 		$this->DB_PASS = getenv('DB_PASS');
 		$this->DB_DSN = "mysql:host=$this->DB_HOST;port=$this->DB_PORT;dbname=$this->DB_NAME";
-		$this->db = new PDO($this->DB_DSN, $this->DB_USER, $this->DB_PASS);
-		$this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$this->db = new \PDO($this->DB_DSN, $this->DB_USER, $this->DB_PASS);
+		$this->db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 	}
 
 	public function applyMigrations() {
@@ -66,7 +63,7 @@ class Migrator {
 		$toApplyMigrations = array_diff($files, $appliedMigrations);
 		usort($toApplyMigrations, function ($a, $b) {
 			if (!is_numeric($a[-5]) || !is_numeric($b[-5])) {
-				throw new Exception("naming format of migrations is incorrect, last character should be the order of execution");
+				throw new \Exception("naming format of migrations is incorrect, last character should be the order of execution");
 				exit(1);
 			}
 			return $a[-5] < $b[-5] ? -1 : 1;
@@ -76,7 +73,7 @@ class Migrator {
 	public function getAppliedMigrations() {
 		$stmt = $this->db->prepare("SELECT migrations FROM migrations");
 		$stmt->execute();
-		return $stmt->fetchAll(PDO::FETCH_COLUMN);
+		return $stmt->fetchAll(\PDO::FETCH_COLUMN);
 	}
 	public function log($message) {
 		echo '[' . date('d-m-Y H:i:s') . '] - ' . $message . PHP_EOL;

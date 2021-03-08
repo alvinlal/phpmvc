@@ -1,6 +1,6 @@
 <?php
 
-namespace app\core;
+namespace alvin\phpmvc;
 
 class View {
 	public string $layout = 'index';

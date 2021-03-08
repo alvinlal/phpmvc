@@ -1,15 +1,5 @@
 <?php
-namespace app\core;
-use app\core\View;
-use app\core\Router;
-use app\core\Request;
-use app\core\Session;
-use app\core\Response;
-use app\core\Middleware;
-use app\core\FileStorage;
-use app\core\ErrorHandler;
-use app\core\ExceptionHandler;
-use InvalidArgumentException;
+namespace alvin\phpmvc;
 
 class Application {
 	public static Application $app;
@@ -66,19 +56,19 @@ class Application {
 
 	private function checkInput($route, $resolvable) {
 		if (strpos($route, '/') !== 0) {
-			throw new InvalidArgumentException("The route should begin with a '/', $route given");
+			throw new \InvalidArgumentException("The route should begin with a '/', $route given");
 		} else if (is_string($resolvable)) {
 			return;
 		} else if (is_array($resolvable)) {
 			if (sizeof($resolvable) !== 2) {
-				throw new InvalidArgumentException("The array should contain exactly 2 elements");
+				throw new \InvalidArgumentException("The array should contain exactly 2 elements");
 			}
 			if (!is_string($resolvable[1])) {
-				throw new InvalidArgumentException("second element in the array should be a string, " . gettype($resolvable[1]) . " given");
+				throw new \InvalidArgumentException("second element in the array should be a string, " . gettype($resolvable[1]) . " given");
 			}
 			return;
 		} else {
-			throw new InvalidArgumentException("second argument should be an array containing a classname and method name or a name of view");
+			throw new \InvalidArgumentException("second argument should be an array containing a classname and method name or a name of view");
 		}
 	}
 

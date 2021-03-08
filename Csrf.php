@@ -1,8 +1,6 @@
 <?php
 
-namespace app\core;
-use app\core\Request;
-use app\core\Response;
+namespace alvin\phpmvc;
 
 class Csrf {
 	private array $config = [

@@ -1,8 +1,8 @@
 <?php
 
-namespace app\core;
-use app\core\Application;
-use app\core\exception\RouteNotFoundException;
+namespace alvin\phpmvc;
+
+use alvin\phpmvc\exception\RouteNotFoundException;
 
 class Router {
 	private array $routeMap = [];

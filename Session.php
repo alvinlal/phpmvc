@@ -1,6 +1,6 @@
 <?php
 
-namespace app\core;
+namespace alvin\phpmvc;
 
 class Session {
 	private const FLASH_KEY = 'flash';

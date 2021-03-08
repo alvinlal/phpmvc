@@ -1,7 +1,6 @@
 <?php
 
-namespace app\core;
-use app\core\Database;
+namespace alvin\phpmvc;
 
 class Model extends Database {
 	public function beginTransaction() {

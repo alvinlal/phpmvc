@@ -1,7 +1,6 @@
 <?php
 
-namespace app\core;
-use app\core\Application;
+namespace alvin\phpmvc;
 
 class FileStorage {
 	public function put(string $uploadPath, string $fileName) {

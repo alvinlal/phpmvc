@@ -8,5 +8,10 @@
             "email": "alvinzzz2001@gmail.com"
         }
     ],
+    "autoload": {
+        "psr-4": {
+          "alvin\\phpmvc\\":"."
+        }
+    },
     "require": {}
 }

@@ -3,7 +3,7 @@ namespace alvin\phpmvc;
 
 class Application {
 	public static Application $app;
-	public static string $rootDir;
+	public  ? string $rootDir = null;
 	public Router $router;
 	public Session $session;
 	public Request $request;
@@ -14,7 +14,7 @@ class Application {
 
 	public function __construct(string $rootDir) {
 		$this->setErrorHandlers();
-		self::$rootDir = $rootDir;
+		$this->$rootDir = $rootDir;
 		$this->router = new Router();
 		$this->request = new Request();
 		$this->response = new Response();

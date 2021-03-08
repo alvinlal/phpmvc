@@ -11,7 +11,7 @@ class View {
 
 	public function renderView(string $view, array $params) {
 		ob_start();
-		include __DIR__ . "/../views/layouts/$this->layout.php";
+		include Application::$app->rootDir . "views/layouts/$this->layout.php";
 		$layoutContent = ob_get_clean();
 		$viewContent = $this->renderViewOnly($view, $params);
 		return str_replace('{{content}}', $viewContent, $layoutContent);
@@ -27,7 +27,7 @@ class View {
 		}
 		$_csrfToken = $_SESSION['csrfToken'];
 		ob_start();
-		include_once __DIR__ . "/../views/$view.php";
+		include_once Application::$app->rootDir . "views/$view.php";
 		return ob_get_clean();
 
 	}

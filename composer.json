@@ -1,6 +1,6 @@
 {
     "name": "alvin/phpmvc",
-    "description": "A simple php mvc framework",
+    "description": "A lightweight php mvc framework",
     "authors": [
         {
             "name": "alvinlal",

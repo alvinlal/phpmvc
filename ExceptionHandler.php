@@ -2,8 +2,17 @@
 
 namespace alvin\phpmvc;
 
+/**
+ * Custom Exception handler
+ */
 class ExceptionHandler {
 
+	/**
+	 * Exception handler function
+	 *
+	 * @param obj $exception The exception thrown
+	 * @return void
+	 */
 	public static function handle($exception) {
 		ob_clean();
 		echo $exception->getMessage() . "</br>";

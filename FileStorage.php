@@ -2,7 +2,20 @@
 
 namespace alvin\phpmvc;
 
+/**
+ * File storage class
+ */
 class FileStorage {
+
+	/**
+	 * Put a file.
+	 *
+	 * check if specified path exists and puts the file there with unique filename
+	 *
+	 * @param string $uploadPath The path of the file
+	 * @param string $fileName The name of the file
+	 * @return string The filename
+	 */
 	public function put(string $uploadPath, string $fileName) {
 		$file = Application::$app->request->input($fileName);
 		if ($uploadPath[-1] == '/') {

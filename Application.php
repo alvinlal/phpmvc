@@ -181,7 +181,7 @@ class Application {
 			}
 			return;
 		} else {
-			throw new \InvalidArgumentException("second argument should be an array containing a classname and method name or a name of view");
+			throw new \InvalidArgumentException("second argument should be an array containing a classname and method name,name of a view or a anonymous function");
 		}
 	}
 

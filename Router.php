@@ -126,6 +126,8 @@ class Router {
 				$controller = new $resolvable[0];
 				echo call_user_func_array(array($controller, $resolvable[1]), $args);
 				exit();
+			} else if (is_callable($resolvable)) {
+				echo $resolvable(...$args);
 			} else if (is_string($resolvable)) {
 				echo Application::$app->view->renderViewOnly($resolvable);
 				exit();

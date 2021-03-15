@@ -1,11 +1,12 @@
 <?php
 
 namespace alvin\phpmvc;
+use alvin\phpmvc\Controller;
 
 /**
  * Base class for exposing database methods
  */
-class Database {
+class Database extends Controller {
 
 	/**
 	 * PDO instance.

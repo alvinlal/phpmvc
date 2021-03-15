@@ -40,4 +40,3 @@ composer require alvin/phpmvc
 ## Documentation
 
 You can view the documentation [here](https://github.com/alvinlal/phpmvc/wiki/Documentation).
-

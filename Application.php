@@ -68,7 +68,7 @@ class Application {
 	 */
 	public function __construct(string $rootDir) {
 		$this->setErrorHandlers();
-		$this->$rootDir = $rootDir;
+		$this->rootDir = $rootDir;
 		$this->router = new Router();
 		$this->request = new Request();
 		$this->response = new Response();

@@ -2,6 +2,8 @@
 
 A lightweight mvc framework for php
 
+#### ! This framework is not production ready
+
 ```php
 <?php
 
@@ -19,7 +21,7 @@ $app->run();
 
 ```
 
-[![Latest Stable Version](https://poser.pugx.org/alvin/phpmvc/v)](//packagist.org/packages/alvin/phpmvc) [![Total Downloads](https://poser.pugx.org/alvin/phpmvc/downloads)](//packagist.org/packages/alvin/phpmvc) [![License](https://poser.pugx.org/alvin/phpmvc/license)](//packagist.org/packages/alvin/phpmvc)
+[![Latest Unstable Version](https://poser.pugx.org/alvin/phpmvc/v/unstable)](//packagist.org/packages/alvin/phpmvc) [![Total Downloads](https://poser.pugx.org/alvin/phpmvc/downloads)](//packagist.org/packages/alvin/phpmvc) [![License](https://poser.pugx.org/alvin/phpmvc/license)](//packagist.org/packages/alvin/phpmvc)
 
 ## Installation
 

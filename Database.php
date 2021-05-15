@@ -86,6 +86,7 @@ class Database extends Controller {
 		$this->DB_DSN = "mysql:host=$this->DB_HOST:$this->DB_PORT;dbname=$this->DB_NAME";
 		$this->sqldb = new \PDO($this->DB_DSN, $this->DB_USER, $this->DB_PASS);
 		$this->sqldb->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+		$this->sqldb->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
 	}
 
 	/**

@@ -161,7 +161,7 @@ class Request {
 	 * @return mixed
 	 */
 	public function query(string $key) {
-		return $this->params[$key] ?? false;
+		return $this->params[$key] ?? null;
 	}
 
 	/**
